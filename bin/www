@@ -1,0 +1,20 @@
+var app = require('../app');
+var http = require('http');
+var models = require('../models');
+
+
+const DEF_PORT=3000; 
+var port = process.env.PORT || DEF_PORT;
+var server = http.createServer(app);
+
+models.sequelize.sync().then(
+    ()=>{
+        return new Promise(()=>{
+            server.listen(port,()=>{ console.log('listening on port 3000'); });
+        });
+    }
+);
+
+
+
+

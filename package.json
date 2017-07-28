@@ -1,0 +1,26 @@
+{
+  "name": "erp_rest_skeleton",
+  "version": "1.0.0",
+  "description": "Skeleton para dejar REST API limpio",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bin/www"
+  },
+  "author": "Romeo Klaus, Hesch",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "eslint": "^4.3.0",
+    "express": "^4.15.3",
+    "helmet": "^3.8.0",
+    "morgan": "^1.8.2",
+    "sequelize": "^4.3.2",
+    "serve-favicon": "^2.4.3",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0"
+  }
+}
