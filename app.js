@@ -8,6 +8,8 @@ const path = require('path');
 // routes to be required
 const def = require('./routes/default');
 const gruposEmpresariales = require('./routes/gruposEmpresariales');
+const razonesSociales = require('./routes/razonesSociales');
+
 
 const app = express();
 
@@ -30,6 +32,8 @@ app.use((req, res, next) => {
 // HERE ALL ROUTES MUST BE MOUNTED  
 app.use('/', def);
 app.use('/api/v1.0/ge', gruposEmpresariales);
+app.use('/api/v1.0/rs', razonesSociales);
+
 
 app.use((req, res, next) => {
   const err = new Error('404');

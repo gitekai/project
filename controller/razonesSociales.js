@@ -1,4 +1,4 @@
-const GrupoEmpresarial = require('../models').GruposEmpresariales;
+const RazonesSociales = require('../models').RazonesSociales;
 
 /**
  * Function that sends an internal server error (will be exported to a module)
@@ -16,7 +16,7 @@ function sendServerError(res, err) {
 
 
 /**
- * Function that creates an GrupoEmpresarial
+ * Function that creates an RazonesSociales
  * @name create
  * @module gruposEmpresariales
  * @function
@@ -25,14 +25,14 @@ function sendServerError(res, err) {
  * @returns {JSON} - Will return the just created object with 201 statusCode
  */
 function create(req, res) {
-  return GrupoEmpresarial.create({
+  return RazonesSociales.create({
     nombre: req.body.nombre,
     nif: req.body.nif,
     tlf: req.body.tlf,
     correo: req.body.correo,
   })
-    .then((grupoEmpresarialCreated) => {
-      res.status(201).json(grupoEmpresarialCreated);
+    .then((RazonesSocialesCreated) => {
+      res.status(201).json(RazonesSocialesCreated);
     }).catch((err) => {
       sendServerError(res, err);
     });
@@ -48,7 +48,7 @@ function create(req, res) {
  * @returns {Array.JSON} - Will return the requested Grupo Empresarial or all Grupos Empresariales
  */
 function readById(req, res) {
-  return GrupoEmpresarial.findById(req.params.id)
+  return RazonesSociales.findById(req.params.id)
     .then((filteredGe) => {
       res.json(filteredGe);
     })
@@ -59,7 +59,7 @@ function readById(req, res) {
 
 
 /**
- * Function that updates a GrupoEmpresarial with given ID
+ * Function that updates a RazonesSociales with given ID
  * @name update
  * @module gruposEmpresariales
  * @function
@@ -68,7 +68,7 @@ function readById(req, res) {
  * @returns {JSON} - Will return the modified Grupo Empresarial 
  */
 function update(req, res) {
-  return GrupoEmpresarial
+  return RazonesSociales
     .findById(req.params.id)
     .then(foundGe =>
       foundGe.update({
@@ -77,9 +77,9 @@ function update(req, res) {
         tlf: (req.body.tlf) ? req.body.tlf : foundGe.get('tlf'),
         correo: (req.body.correo) ? req.body.correo : foundGe.get('correo'),
       }))
-    .then((grupoEmpresarialUpdated) => {
+    .then((RazonesSocialesUpdated) => {
       res.statusCode = 201;
-      res.json(grupoEmpresarialUpdated);
+      res.json(RazonesSocialesUpdated);
     })
     .catch((err) => {
       sendServerError(res, err);
@@ -88,7 +88,7 @@ function update(req, res) {
 
 
 /**
- * Function that deletes a GrupoEmpresarial with given ID
+ * Function that deletes a RazonesSociales with given ID
  * @name delById
  * @module gruposEmpresariales
  * @function
@@ -97,7 +97,7 @@ function update(req, res) {
  * @returns {JSON} - Will return statusCode 204
  */
 function delById(req, res) {
-  return GrupoEmpresarial
+  return RazonesSociales
     .findById(req.params.id)
     .then(foundGe =>
       foundGe.destroy())
@@ -111,7 +111,7 @@ function delById(req, res) {
 
 
 /**
- * Function that deletes all GrupoEmpresariales
+ * Function that deletes all RazonesSocialeses
  * @name delAll
  * @module gruposEmpresariales
  * @function
@@ -120,7 +120,7 @@ function delById(req, res) {
  * @returns {JSON} - Will return a statusCode 204
  */
 function delAll(req, res) {
-  return GrupoEmpresarial.destroy({
+  return RazonesSociales.destroy({
     where: {},
     tuncate: true,
   })
@@ -160,7 +160,7 @@ function getOrderArray(strOrder = '') {
  * @returns {Array.JSON} - Will return the requested Grupo Empresarial or all Grupos Empresariales
  */
 function readAll(req, res) {
-  return GrupoEmpresarial.findAll({
+  return RazonesSociales.findAll({
     limit: req.query.limit,
     offset: req.query.offset,
     order: getOrderArray(req.query.order),
