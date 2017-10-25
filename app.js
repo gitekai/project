@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 app.use('/', def);
 app.use('/api/v1.0/ge', gruposEmpresariales);
 app.use('/api/v1.0/rs', razonesSociales);
-
+//app.use('/', );
 
 app.use((req, res, next) => {
   const err = new Error('404');

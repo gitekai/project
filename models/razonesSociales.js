@@ -3,11 +3,11 @@ module.exports = (sequelize, DataTypes) => {
     'RazonesSociales',
     {
       // id is not needed (will be done automatically)
-      id:
+    /* id:
       {
         type: DataTypes.INTEGER,
         primaryKey: true,
-      },      
+      }, */     
       nombre:
       {
         type: DataTypes.STRING,

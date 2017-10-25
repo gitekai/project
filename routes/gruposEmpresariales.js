@@ -9,5 +9,6 @@ router.delete('/', controller.delAll);
 router.get('/:id', controller.readById);
 router.put('/:id', controller.update);
 router.delete('/:id', controller.delById);
+// router.post('/:id/rs', controller.addRazonSocial);
 
 module.exports = router;
