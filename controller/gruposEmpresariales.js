@@ -1,5 +1,4 @@
 const GrupoEmpresarial = require('../models').GruposEmpresariales;
-
 /**
  * Function that sends an internal server error (will be exported to a module)
  * @param {HTTPResponse} res - HTTP response
@@ -182,3 +181,5 @@ module.exports = {
   delAll,
   delById,
 };
+
+

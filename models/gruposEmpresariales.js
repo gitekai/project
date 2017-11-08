@@ -6,6 +6,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
+        set(val) {
+          this.setDataValue('nombre', val.toUpperCase());
+        },
+        field: 'namen_ist_proben',
+        // esto es para hacer un mapeo y así evitar exponer los nombres reales de las columnas
       },
     },
     {

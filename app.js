@@ -9,7 +9,7 @@ const path = require('path');
 const def = require('./routes/default');
 const gruposEmpresariales = require('./routes/gruposEmpresariales');
 const razonesSociales = require('./routes/razonesSociales');
-
+const mappingRouter = require('./routes/mappping');
 
 const app = express();
 
@@ -29,11 +29,15 @@ app.use((req, res, next) => {
   res.setHeader('Content-Type', 'application/json');
   next();
 });
-// HERE ALL ROUTES MUST BE MOUNTED  
+//ALL ROUTES MUST BE MOUNTED HERE 
 app.use('/', def);
+app.use('/test', mappingRouter);
+
 app.use('/api/v1.0/ge', gruposEmpresariales);
 app.use('/api/v1.0/rs', razonesSociales);
-//app.use('/', );
+
+
+
 
 app.use((req, res, next) => {
   const err = new Error('404');
@@ -46,8 +50,8 @@ app.use((req, res, next) => {
 /**
  * @param {string name Whom to greet.
  */
-app.use((err, req, res, next) => {
-  const internalSrvErr = { message: 'Internal Server Error' };
+app.use((err, req, res) => {
+  const internalSrvErr = { message: `Internal Server Error ${err}` };
   const notFoundErr = { message: 'Route Not Found' };
   res.send(err.code === 404 ? JSON.stringify(notFoundErr) : JSON.stringify(internalSrvErr));
 });
