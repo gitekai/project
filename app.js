@@ -31,12 +31,12 @@ app.use((req, res, next) => {
 });
 //ALL ROUTES MUST BE MOUNTED HERE 
 app.use('/', def);
-app.use('/test', mappingRouter);
-
 app.use('/api/v1.0/ge', gruposEmpresariales);
 app.use('/api/v1.0/rs', razonesSociales);
 
-
+//al final van los router genericos 
+// asi si hay algo más especifico se ejecuta eso en vez del generico
+app.use('/api/v1.0/', mappingRouter);
 
 
 app.use((req, res, next) => {
@@ -51,7 +51,8 @@ app.use((req, res, next) => {
  * @param {string name Whom to greet.
  */
 app.use((err, req, res) => {
-  const internalSrvErr = { message: `Internal Server Error ${err}` };
+//  const internalSrvErr = { message: `Internal Server Error ${err}` };
+  const internalSrvErr = { message: `WTF` };  
   const notFoundErr = { message: 'Route Not Found' };
   res.send(err.code === 404 ? JSON.stringify(notFoundErr) : JSON.stringify(internalSrvErr));
 });
