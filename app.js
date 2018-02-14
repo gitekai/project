@@ -7,6 +7,7 @@ const path = require('path');
 
 // routes to be required
 const def = require('./routes/default');
+const authorization = require('./routes/authorization');
 const gruposEmpresariales = require('./routes/gruposEmpresariales');
 const razonesSociales = require('./routes/razonesSociales');
 const mappingRouter = require('./routes/mappping');
@@ -36,7 +37,7 @@ app.use('/api/v1.0/rs', razonesSociales);
 
 //al final van los router genericos 
 // asi si hay algo más especifico se ejecuta eso en vez del generico
-app.use('/api/v1.0/', mappingRouter);
+app.use('/api/v1.1/', mappingRouter);
 
 
 app.use((req, res, next) => {

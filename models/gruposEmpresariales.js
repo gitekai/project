@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         field: 'namen_ist_proben',
         // esto es para hacer un mapeo y así evitar exponer los nombres reales de las columnas
+        //el field representa el campo verdadero de la BBDD
       },
     },
     {
