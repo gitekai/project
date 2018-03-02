@@ -4,9 +4,9 @@ const logger = require('morgan');
 const helmet = require('helmet');
 const favicon = require('serve-favicon');
 const path = require('path');
-const schema = require('./utils/graphql/schema');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
+const schema = require('./utils/graphql/schema');
+
 
 // routes to be required
 const def = require('./routes/default');
@@ -20,12 +20,12 @@ const app = express();
 // loading middleware where needed: 
 app.use(logger('combined'));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(helmet());
+/*app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
   },
-}));
+}));*/
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

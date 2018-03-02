@@ -1,27 +1,34 @@
-const makeExecutableSchema = require('graphql-tools').makeExecutableSchema;
+const { makeExecutableSchema } = require('graphql-tools');
+
 const models = require('../../models');
 
 
 const typeDefs = `
 
-  type GrupoEmpresarial {
+  type RazonSocial {
     id: Int!
     nombre: String! 
+    nif: String
+    cuentaContaPlus: Int
+    url: String
+    fechaAlta: Int!
+    fechaBaja: Int
+    numCliente: String
   }
 
   # the schema allows the following query:
   type Query {
-    gruposEmpresariales: [gruposEmpresariales!]!
+    razonesSociales: [RazonSocial!]!
   }
-  graphql
-  # this schema allows the following mutation:
-
+  
 `;
 
 const resolvers = {
   Query: {
-    gruposEmpresariales: () => {
-      models.gruposEmpresariales.findAll().json();
+    razonesSociales: () => {
+      return models.RazonesSociales.findAll();
+      
+    
     }
   },
 };
