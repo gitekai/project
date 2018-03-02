@@ -1,7 +1,12 @@
 {
   "development": {
     "storage": "./database_development",
-    "dialect": "sqlite"
+    "dialect": "sqlite",
+    "define": {
+      "timestamps": true,
+      "freezeTableName": true,
+      "underscored": true
+    }
   },
   "test": {
     "storage": "./database_development",

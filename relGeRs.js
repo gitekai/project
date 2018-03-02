@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       fk_razones_sociales: 
       {
-        primaryKey: true,
         type: DataTypes.INTEGER,
+        primaryKey: true,
         references: {
           model: 'RazonesSociales',
           key: 'id',

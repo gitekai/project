@@ -181,5 +181,3 @@ module.exports = {
   delAll,
   delById,
 };
-
-

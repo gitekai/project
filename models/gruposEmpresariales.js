@@ -9,21 +9,16 @@ module.exports = (sequelize, DataTypes) => {
         set(val) {
           this.setDataValue('nombre', val.toUpperCase());
         },
-        field: 'namen_ist_proben',
-        // esto es para hacer un mapeo y así evitar exponer los nombres reales de las columnas
-        //el field representa el campo verdadero de la BBDD
+        // field: 'namen_ist_proben',
       },
     },
     {
-      underscored: true,
-      tablename: 'grupos_empresariales',
     });
 
-  GruposEmpresariales.associate = (models) => {
+ /* GruposEmpresariales.associate = (models) => {
     GruposEmpresariales.hasMany(models.RazonesSociales, {
       foreignKey: 'fkRazonesSociales',
     });
-  };
-
+  };*/
   return GruposEmpresariales;
 };

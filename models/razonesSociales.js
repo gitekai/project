@@ -2,42 +2,41 @@ module.exports = (sequelize, DataTypes) => {
   const RazonesSociales = sequelize.define(
     'RazonesSociales',
     {
-      // id is not needed (will be done automatically)
-    /* id:
-      {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-      }, */     
       nombre:
       {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
       },
-      nif:
-      {
+      nif: {
         type: DataTypes.STRING,
       },
-
-      tlf:
-      {
-        type: DataTypes.INTEGER,
-      },
-      correo:
-      {
-        type: DataTypes.STRING,
+      cuentaContaPlus: {
+        type: DataTypes.BIGINT,
       },
       url:
       {
         type: DataTypes.STRING,
       },
-
+      fechaAlta: {
+        type: DataTypes.DATEONLY,
+      },
+      fechaBaja: {
+        type: DataTypes.DATEONLY,
+      },
+      numCliente: {
+        type: DataTypes.STRING, 
+      },
     },
     {
-      underscored: true,
-      tablename: 'razones_sociales',
-    },
-  );
+      // tablename: 'razones_sociales',
+    });
 
+  RazonesSociales.associate = (models) => {
+    RazonesSociales.hasOne(RazonesSociales,{
+      as: 'AnteriorRazonSocial',
+      foreignKey: 'id_anterior_rs',
+    });
+  }
   return RazonesSociales;
 };

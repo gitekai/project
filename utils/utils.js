@@ -12,6 +12,14 @@ function getModel(model) {
   const modelMap = new Map();
   modelMap.set('ge', 'GruposEmpresariales');
   modelMap.set('rs', 'RazonesSociales');
+  modelMap.set('contactos', 'Contactos');
+  modelMap.set('paises', 'Paises');
+  modelMap.set('tiposContactos', 'TiposContacto');
+  modelMap.set('redesSociales', 'RedesSociales');
+  modelMap.set('tipoMedioComunicacion', 'TipoMedioComunicacion');
+  modelMap.set('direccionesFiscales', 'DireccionesFiscales');
+  modelMap.set('ciudades', 'Ciudades');
+  modelMap.set('contactosEnRedesSociales', 'contactosEnRedesSociales');
 
   return modelMap.get(model);
 }
