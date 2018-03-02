@@ -1,6 +1,10 @@
 {
   "name": "erp_rest_skeleton",
   "version": "1.0.0",
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/gitekai/project.git"
+  },
   "eslintConfig": {
     "env": {
       "browser": true,
@@ -16,18 +20,20 @@
   "author": "Romeo Klaus, Hesch",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "eslint": "^4.3.0",
-    "express": "^4.15.3",
-    "helmet": "^3.8.0",
-    "morgan": "^1.8.2",
-    "sequelize": "^4.3.5",
-    "serve-favicon": "^2.4.3",
-    "sqlite3": "^3.1.9"
+    "body-parser": "^1.18.2",
+    "eslint": "^4.18.1",
+    "express": "^4.16.2",
+    "graphql": "^0.13.1",
+    "graphql-tools": "^2.21.0",
+    "helmet": "^3.11.0",
+    "morgan": "^1.9.0",
+    "sequelize": "^4.35.1",
+    "serve-favicon": "^2.4.5",
+    "sqlite3": "^3.1.13"
   },
   "devDependencies": {
-    "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-plugin-import": "^2.9.0",
     "jest": "^20.0.4",
     "supertest": "^3.0.0"
   }

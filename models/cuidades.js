@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         unique: 'un_pais_ciudad',
       },
     });
-
   };
 
   return Ciudades;
