@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const favicon = require('serve-favicon');
 const path = require('path');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const schema = require('./utils/graphql/schema');
+const schema = require('./graphql/schema');
 
 
 // routes to be required
