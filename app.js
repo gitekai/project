@@ -51,7 +51,7 @@ app.use('/api/v1.1/', mappingRouter);
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
 // GraphiQL, a visual editor for queries
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+app.use('/graph', graphiqlExpress({ endpointURL: '/graphql' }));
 
 
 app.use((req, res, next) => {

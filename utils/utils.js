@@ -20,7 +20,6 @@ function getModel(model) {
   modelMap.set('direccionesFiscales', 'DireccionesFiscales');
   modelMap.set('ciudades', 'Ciudades');
   modelMap.set('contactosEnRedesSociales', 'contactosEnRedesSociales');
-
   return modelMap.get(model);
 }
 

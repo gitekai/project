@@ -8,14 +8,15 @@ casual.seed(123);
 
 const mocks = {
   Int: ()=> casual.integer(from = 555 ,to =  10000),
-  Boolean: () => casual.Boolean,
+  Boolean: () => casual.coin_flip,
   String: ()=> casual.title, 
   GrupoEmpresarial: () => ({
     id: casual.integer(from = 666, to = 1000000),
     nombre: `${casual.company_name} ${casual.company_suffix}`,
     razonesSociales: () => new MockList([10, 30])
   }),
-  RazonSocial: () => ({
+  RazonSocial: (ge)=>{
+    return {
     id: casual.integer(from = 666, to = 1000000),
     nombre: casual.company_name,
     url: casual.url,
@@ -24,9 +25,11 @@ const mocks = {
     numCliente: casual.text,
     fechaAlta: casual.date(format = 'YYYYMMDD'),
     fechaBaja: casual.date(format = 'YYYYMMDD'),
-  }),
+    GrupoEmpresarial: ge ,
+    }
+  },
   Pais: () => ({
-    nombre: casual.country
+    nombre: casual.country,
   }),
   Estado: () => ({
     nombre: casual.random_element(['abierto','cerrado','ganado']),
