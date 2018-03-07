@@ -15,6 +15,9 @@ input rsInput{
   AND: [rsInput!]
   OR: [rsInput!]
   nombre_equals: String
+  nif_equals: String
+  nombre_like: String
+  nif_like:String
   nombre_ne: String
   nombre_contains: String
 }
