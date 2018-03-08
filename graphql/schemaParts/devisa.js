@@ -5,6 +5,9 @@ type Devisa{
   nombre: String!
 }
 
+extend type RootQuery{
+  devisas:[Devisa]
+}
 `;
 
 module.exports = Devisa;

@@ -6,6 +6,10 @@ type Contacto{
   cargo: String
   departamento: String
 }
+
+extend type RootQuery{
+  contactos:[Contacto]
+}
 `;
 
 module.exports = Contacto;

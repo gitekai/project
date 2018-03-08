@@ -5,6 +5,10 @@ type Producto{
     precio: Int!
     devisa: Devisa!
   }
+
+  extend type RootQuery{
+    productos:[Producto]
+  }
   `;
 
 module.exports = Producto;

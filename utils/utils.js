@@ -1,4 +1,5 @@
 const models = require('../models');
+const Op = require('sequelize').Op;
 
 /**
  * Helper function that assigns a model to the req object 
@@ -67,8 +68,79 @@ function assignModelToReq(req, res, next) {
   }
 }
 
+function modifyWhere(obj, res = {}) {
+  if (!obj.AND && !obj.OR) {
+    Object.keys(obj).forEach((key) => {
+
+      let [attr, operator] = key.split('_');
+
+      let a = {};
+      a[attr] = {};
+      if (operator == 'like') {
+        a[attr][Op.like] = obj[key];
+      } else if (operator == 'equals') {
+        a[attr][Op.eq] = obj[key];
+      }else if (operator == 'in') {
+        a[attr][Op.in] = obj[key];
+      }else if (operator == 'not') {
+        a[attr][Op.not] = obj[key];
+      }else if (operator == 'notLike') {
+        a[attr][Op.notLike] = obj[key];
+      }
+
+      obj[attr] = {};
+      Object.defineProperties(obj,
+        {
+          [attr]: Object.getOwnPropertyDescriptor(a, attr),
+        }
+      );
+      delete obj[key];
+    });
+    return obj;
+  }
+
+  if (obj.AND) {
+    Object.defineProperties(obj,
+      {
+        [Op.and]: Object.getOwnPropertyDescriptor(obj, 'AND'),
+      });
+    delete obj.AND;
+    obj[Op.and].forEach((item) => {
+      modifyWhere(item);
+    });
+  }
+
+
+
+  if (obj.OR) {
+    Object.defineProperties(obj,
+      {
+        [Op.or]: Object.getOwnPropertyDescriptor(obj, 'OR'),
+      });
+
+    delete obj.OR;
+    obj[Op.or].forEach((item) => {
+      modifyWhere(item);
+    });
+  }
+
+
+}
+
+
+
+//filter[Op.and].push(operatorObj);
+
+function objIsEmpty(obj) {
+  return Object.keys(obj).length === 0 && obj.constructor === Object
+    && true
+    || false;
+}
+
 module.exports = {
   getInstanceParams,
   assignModelToReq,
   getModel,
+  modifyWhere,
+  objIsEmpty,
 };
