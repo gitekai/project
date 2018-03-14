@@ -22,7 +22,7 @@ const mocks = {
     url: casual.url,
     nif: casual.numerify('X-#######-Y'),
     cuentaContaPlus: casual.integer(from = 1000, to = 100000),
-    numCliente: casual.text,
+    numCliente: casual.string,
     fechaAlta: casual.date(format = 'YYYYMMDD'),
     fechaBaja: casual.date(format = 'YYYYMMDD'),
     GrupoEmpresarial: ge ,

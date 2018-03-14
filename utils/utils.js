@@ -80,12 +80,16 @@ function modifyWhere(obj, res = {}) {
         a[attr][Op.like] = obj[key];
       } else if (operator == 'equals') {
         a[attr][Op.eq] = obj[key];
-      }else if (operator == 'in') {
+      } else if (operator == 'in') {
         a[attr][Op.in] = obj[key];
-      }else if (operator == 'not') {
+      } else if (operator == 'not') {
         a[attr][Op.not] = obj[key];
-      }else if (operator == 'notLike') {
+      } else if (operator == 'notLike') {
         a[attr][Op.notLike] = obj[key];
+      } else if (operator === 'regex') {
+        a[attr][Op.iRegexp] = obj[key];
+      } else if (operator === 'notRegexp') {
+        a[attr][Op.notIRegexp] = obj[key];
       }
 
       obj[attr] = {};
@@ -127,6 +131,40 @@ function modifyWhere(obj, res = {}) {
 
 }
 
+function createMutation(model) {
+  return (obj, args, context) => {
+    return context.models[model].create(args.data);
+  }
+}
+function updateMutation(model,id) {
+  return async (obj, args, context) => {
+    const foundInstance = await context.models[model].findById(args.id);
+    return foundInstance.update(args.data);
+  }
+}
+
+function deleteMutation(model) {
+  return async (obj, args, context) => {
+    const foundInstance =  await context.models[model].findById(args.id);
+    return foundInstance.destroy();
+  }
+}
+function findById(model, id) {
+  return (obj, args, context) => {
+    return context.models[model].findById(args.id);
+  }
+}
+function findAll(model) {
+  return (obj, args, context) => {
+    const { where = {}, first = 10, skip = 0 } = args;
+    modifyWhere(where);
+    return context.models[model].findAll({
+      limit: first,
+      offset: skip,
+      where,
+    });
+  }
+}
 
 
 //filter[Op.and].push(operatorObj);
@@ -143,4 +181,9 @@ module.exports = {
   getModel,
   modifyWhere,
   objIsEmpty,
+  createMutation,
+  findAll,
+  findById,
+  updateMutation,
+  deleteMutation,
 };

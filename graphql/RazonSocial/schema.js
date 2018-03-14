@@ -1,6 +1,7 @@
 const RazonSocial = `
 
 type RazonSocial {
+  id: ID!
   nombre: String! 
   nif: String
   cuentaContaPlus: Int
@@ -9,6 +10,16 @@ type RazonSocial {
   fechaBaja: Int
   numCliente: String
   grupoEmpresarial: GrupoEmpresarial
+}
+
+input rsCreateInput{
+  nombre: String!
+  nif: String
+  cuentaContaPlus: String
+  url: String
+  numCliente: String
+  fechaAlta: String
+  fechaBaja: String
 }
 
 input rsInput{
@@ -62,7 +73,9 @@ extend type RootQuery{
   razonSocial: RazonSocial
 }
 
-
+extend type RootMutation{
+  createRazonSocial(data: rsCreateInput ) : RazonSocial
+}
 `;
 // razonesSociales(where: rsInput, orderBy: OrderByInput,
 // after: afterCursor, before: beforCursor, skip: Int, first: Int, last: Int): [RazonSocial!]!

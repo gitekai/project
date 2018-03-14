@@ -3,18 +3,19 @@ const models = require('../models');
 const mocks = require('./mocks');
 const utils = require('../utils/utils');
 const Pais = require('./schemaParts/pais');
-const RazonSocial = require('./schemaParts/razonSocial');
 const GrupoEmpresarial = require('./schemaParts/grupoEmpresarial');
 const Estado = require('./schemaParts/estado');
 const Devisa = require('./schemaParts/devisa');
-const Contacto = require('./schemaParts/contacto');
+
 const Producto = require('./schemaParts/producto');
 const RedSocial = require('./schemaParts/redSocial');
 
-
-
-
-
+const RazonSocial = require('./RazonSocial/schema');
+const Contacto = require('./Contacto/schema');
+const ResContacto = require('./resolver').Contacto;
+const TipoContacto = require('./TipoContacto/schema');
+const Query = require('./resolver').Query;
+const Mutation = require('./resolver').Mutation;
 
 
 
@@ -38,17 +39,9 @@ const SchemaDefinition = `
   `;
 
 const resolvers = {
-  RootQuery: {
-    razonesSociales: (obj, args, context, info) => {
-      const { where = {}, first = 10, skip = 0 } = args;
-      utils.modifyWhere(where);
-      return models.RazonesSociales.findAll({
-        limit: args.first,
-        offset: args.skip,
-        where: where,
-      });
-    },
-  }
+  RootQuery: Query,
+  RootMutation: Mutation,
+  Contacto: ResContacto, 
 };
 
 
@@ -63,6 +56,7 @@ const schema = makeExecutableSchema({
     Estado,
     Devisa,
     Contacto,
+    TipoContacto,
     Pais,
     Producto,
     RedSocial,
@@ -70,12 +64,13 @@ const schema = makeExecutableSchema({
   ],
   resolvers,
 });
-
+/*
 addMockFunctionsToSchema({
   schema,
   mocks,
   preserveResolvers: true,
-});
+  logger: { log: e => console.log(e) },
+});*/
 
 
 

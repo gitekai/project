@@ -3,14 +3,15 @@ module.exports = (sequelize, DataTypes) => {
     {
       nombre: {
         type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
         set(val) {
           this.setDataValue('nombre', val.toUpperCase());
         },
-        unique: true,
       },
       isVisible: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        defaultValue: true,
       },
     },
     {
@@ -19,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   TiposContacto.associate = (models) => {
     TiposContacto.hasMany(models.Contactos, {
       foreignKey: { 
-        primaryKey: true,
         fieldName: 'id_tipo_contacto',
+        allowNull: false,
       },
       
     });

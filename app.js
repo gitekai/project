@@ -4,9 +4,11 @@ const logger = require('morgan');
 const helmet = require('helmet');
 const favicon = require('serve-favicon');
 const path = require('path');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const cors = require('cors');
+const graphqlHTTP = require('express-graphql');
+const { makeExecutableSchema } = require('graphql-tools');
 const schema = require('./graphql/schema');
-
+const models = require('./models');
 
 // routes to be required
 const def = require('./routes/default');
@@ -16,6 +18,8 @@ const razonesSociales = require('./routes/razonesSociales');
 const mappingRouter = require('./routes/mappping');
 
 const app = express();
+app.use('*', cors({ origin: 'http://localhost:3000' }));
+
 
 // loading middleware where needed: 
 app.use(logger('combined'));
@@ -48,11 +52,24 @@ app.use('/', def);
 app.use('/api/v1.1/', mappingRouter);
 
 // The GraphQL endpoint
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+//app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
 // GraphiQL, a visual editor for queries
-app.use('/graph', graphiqlExpress({ endpointURL: '/graphql' }));
+//app.use('/graph', graphiqlExpress({ endpointURL: '/graphql' }));
 
+
+
+
+
+app.use(
+  '/graphql', 
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+    context: { models }
+  }));
+app.listen(3000);
+console.log('Running a GraphQL API server at localhost:3000/graphql');
 
 app.use((req, res, next) => {
   const err = new Error('404');
@@ -60,17 +77,26 @@ app.use((req, res, next) => {
   next(err);
 });
 
+
 // missing brace
 // missing @returns tag
 /**
  * @param {string name Whom to greet.
  */
 app.use((err, req, res) => {
-//  const internalSrvErr = { message: `Internal Server Error ${err}` };
-  const internalSrvErr = { message: `WTF` };  
+  //  const internalSrvErr = { message: `Internal Server Error ${err}` };
+  const internalSrvErr = { message: `WTF` };
   const notFoundErr = { message: 'Route Not Found' };
   res.send(err.code === 404 ? JSON.stringify(notFoundErr) : JSON.stringify(internalSrvErr));
 });
 
 
+
+
+
+
+
 module.exports = app;
+
+
+

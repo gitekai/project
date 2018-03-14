@@ -8,9 +8,12 @@
       "underscored": true
     }
   },
-  "test": {
-    "storage": "./database_development",
-    "dialect": "sqlite"
+  "preprod": {
+    "username": "postgres",
+    "password": null,
+    "database": "erp",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   },
   "production": {
     "username": "root",

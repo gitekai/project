@@ -1,12 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
   const RedesSociales = sequelize.define('RedesSociales',
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
       nombre: {
         type: DataTypes.STRING,
         set(val) {
           this.setDataValue('nombre', val.toUpperCase());
         },
         unique: true,
+        allowNull: false,
       },
       url: {
         type: DataTypes.STRING,

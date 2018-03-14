@@ -14,8 +14,10 @@ async function create_rs(counter) {
   let ge = mocks.GrupoEmpresarial();
   await models.GruposEmpresariales.create(ge);
   for (let i = 0; i < counter; i += 1) {
+    let rs = mocks.RazonSocial(ge);
+    rs.nombre = `${rs.nombre}_${i}`;
     promises.push(
-      models.RazonesSociales.create(mocks.RazonSocial(ge))
+      models.RazonesSociales.create(rs)
     );
   }
   return Promise.all(promises)
@@ -33,32 +35,4 @@ async function startup() {
   });
 }
 
-
-
 startup();
-
-
-/*
-models.sequelize.sync({force: true}).then(()=>{
-  create_razones_sociales();
-
-}).catch((err)=>{
-  console.log(err);
-})
-
-
-
-models.sequelize.sync({force: true}).then(
-
-
-
-  server.listen(port, () => {
-    console.log(`listening on port ${DEF_PORT}`);
-  });
-);
-
-  .catch((err) => {
-    console.log(err);
-  });
-
-  */
