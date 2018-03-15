@@ -8,6 +8,7 @@ const cors = require('cors');
 const graphqlHTTP = require('express-graphql');
 const { makeExecutableSchema } = require('graphql-tools');
 const schema = require('./graphql/schema');
+
 const models = require('./models');
 
 // routes to be required
@@ -41,32 +42,33 @@ app.use((req, res, next) => {
 app.use('/', def);
 
 
-
-
-
-//app.use('/api/v1.0/ge', gruposEmpresariales);
-//app.use('/api/v1.0/rs', razonesSociales);
-
 //al final van los router genericos 
 // asi si hay algo más especifico se ejecuta eso en vez del generico
 app.use('/api/v1.1/', mappingRouter);
 
-// The GraphQL endpoint
-//app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+const DataLoader = require('dataloader');
+const getTipoContactoById = models => ids => models
+  .TiposContacto.findAll({
+    attributes: ['nombre'],
+    where{ id Op.in ids }
+  }).then(seqInstance => {
+    return seqInstance.map((inst)=> inst.nombre);
+  }
+    
+);
 
-// GraphiQL, a visual editor for queries
-//app.use('/graph', graphiqlExpress({ endpointURL: '/graphql' }));
-
-
+const dataloaders = models => ({
+  tipoContactoById: new DataLoader(getTipoContactoById(models)),
+});
 
 
 
 app.use(
-  '/graphql', 
+  '/graphql',
   graphqlHTTP({
     schema,
     graphiql: true,
-    context: { models }
+    context: { models, dataloaders: dataloaders(models) }
   }));
 app.listen(3000);
 console.log('Running a GraphQL API server at localhost:3000/graphql');
@@ -89,11 +91,6 @@ app.use((err, req, res) => {
   const notFoundErr = { message: 'Route Not Found' };
   res.send(err.code === 404 ? JSON.stringify(notFoundErr) : JSON.stringify(internalSrvErr));
 });
-
-
-
-
-
 
 
 module.exports = app;

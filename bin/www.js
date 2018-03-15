@@ -27,9 +27,38 @@ async function create_rs(counter) {
 
 }
 
+function random(max=0){
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+async function create_contactos(countTipo = 1, countContactos = 2) {
+  const promises = [];
+
+  const arrTipos = new Array();
+  const arrTiposPromises = new Array();
+  for (let i = 0; i < countTipo; i++) {
+    let tipoContacto = mocks.TipoContacto();
+    tipoContacto.nombre = `${tipoContacto.nombre}_${i}`;
+    arrTipos.push(tipoContacto);
+    arrTiposPromises.push(models.TiposContacto.create(tipoContacto));
+  }
+  await Promise.all(arrTiposPromises);
+  arrContactosPromise = new Array();
+  for (let i = 0; i < countContactos; i += 1) {
+    let tipoContacto = arrTipos[random(countTipo)]
+    let contacto = mocks.Contacto(tipoContacto.id);
+    arrContactosPromise.push(models.Contactos.create(contacto));
+  }
+  return Promise.all(arrContactosPromise)
+    .catch((err) => {
+      console.log(`Ha habido un error = ${err}`);
+    });
+}
+
 async function startup() {
   await models.sequelize.sync({ force: true });
   await create_rs(10);
+  await create_contactos(3,20);
   server.listen(port, () => {
     console.log("server started");
   });

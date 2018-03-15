@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Contactos.associate = (models) => {
     Contactos.hasMany(models.MedioComunicacion, {
-      foreignKey: 'id_contacto',
+      foreignKey: 'id_Contacto',
       allowNull: false,
     });
     Contactos.belongsToMany(models.RedesSociales, { 

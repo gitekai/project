@@ -90,6 +90,8 @@ function modifyWhere(obj, res = {}) {
         a[attr][Op.iRegexp] = obj[key];
       } else if (operator === 'notRegexp') {
         a[attr][Op.notIRegexp] = obj[key];
+      } else {
+        a[attr][Op.eq] = obj[key];
       }
 
       obj[attr] = {};
@@ -134,25 +136,25 @@ function modifyWhere(obj, res = {}) {
 function createMutation(model) {
   return (obj, args, context) => {
     return context.models[model].create(args.data);
-  }
+  };
 }
-function updateMutation(model,id) {
+function updateMutation(model) {
   return async (obj, args, context) => {
     const foundInstance = await context.models[model].findById(args.id);
     return foundInstance.update(args.data);
-  }
+  };
 }
 
 function deleteMutation(model) {
   return async (obj, args, context) => {
-    const foundInstance =  await context.models[model].findById(args.id);
+    const foundInstance = await context.models[model].findById(args.id);
     return foundInstance.destroy();
-  }
+  };
 }
-function findById(model, id) {
+function findById(model) {
   return (obj, args, context) => {
     return context.models[model].findById(args.id);
-  }
+  };
 }
 function findAll(model) {
   return (obj, args, context) => {

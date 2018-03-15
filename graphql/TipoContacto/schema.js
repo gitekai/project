@@ -32,16 +32,22 @@ input queryTipoContacto{
 
 input queryUniqueTipoContacto{
   id: Int
+  nombre: String
 }
+
+type TipoContactoDelete {
+  count: Int!
+}
+
 
 extend type  RootQuery{
   tiposContactos(where: queryTipoContacto): [TipoContacto!]!
-  tipoContacto(where: queryUniqueTipoContacto! ): TipoContacto
+  tipoContacto(id: Int! ): TipoContacto
 }
 extend type RootMutation{
   createTipoContacto(data: createTipoContacto!): TipoContacto!
   modifyTipoContacto(data: updateTipoContacto!, id: Int!): TipoContacto!
-  deleteTipoContacto(id: Int!): TipoContacto
+  deleteTipoContacto(id: Int!): TipoContactoDelete
 }
 
 `;

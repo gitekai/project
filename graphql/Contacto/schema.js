@@ -30,6 +30,16 @@ input createContacto{
   recibeRegaloEnNavidad: Boolean
 }
 
+input updateContacto{
+  nombre: String 
+  apellidos: String
+  id_tipo_contacto: Int
+  cargo: String
+  departamento: String
+  descripcion: String
+  recibeRegaloEnNavidad: Boolean
+}
+
 input queryUniqueContacto{
   id: Int
   nombre: String
@@ -54,12 +64,18 @@ input queryContacto{
  
 }
 
+type ContactoDelete{
+  success: Int
+}
+
 extend type RootQuery{
-  contactos(where: queryContacto ): [Contacto!]!
-  contacto(where: queryUniqueContacto ! ): Contacto!
+  contactos(where: queryContacto): [Contacto!]!
+  contacto(id: Int! ): Contacto
 }
 extend type RootMutation{
-  createContacto(data: createContacto): Contacto!
+  createContacto(data: createContacto!): Contacto!
+  modifyContacto(data: updateContacto!, id: Int!): Contacto!
+  deleteContacto(id: Int!): ContactoDelete
 }
 `;
 
