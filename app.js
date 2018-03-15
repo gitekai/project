@@ -8,7 +8,7 @@ const cors = require('cors');
 const graphqlHTTP = require('express-graphql');
 const { makeExecutableSchema } = require('graphql-tools');
 const schema = require('./graphql/schema');
-
+const Op = require('sequelize').Op;
 const models = require('./models');
 
 // routes to be required
@@ -50,10 +50,10 @@ const DataLoader = require('dataloader');
 const getTipoContactoById = models => ids => models
   .TiposContacto.findAll({
     attributes: ['nombre'],
-    where{ id Op.in ids }
+    where: { id: {[Op.in]: ids} }
   }).then(seqInstance => {
     return seqInstance.map((inst)=> inst.nombre);
-  }
+  };
     
 );
 
