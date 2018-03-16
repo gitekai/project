@@ -1,10 +1,13 @@
 const { MockList } = require('graphql-tools');
 const casual = require('casual');
+const Contacto = require('./Contacto/mock');
+const TipoContacto = require('./TipoContacto/mock');
+
+
 
 casual.seed(123);
 
 
-/* eslint-disable */
 
 const mocks = {
   Int: () => casual.integer(from = 555, to = 10000),
@@ -38,23 +41,8 @@ const mocks = {
     nombre: casual.random_element(['Facebook', 'Twitter', 'Google+', 'Instagram', 'LinkedIN']),
     url: casual.url,
   }),
-  Contacto: (id_tipo) => {
-    return {
-      id: casual.integer(from = 666, to = 1000000),
-      nombre: casual.first_name,
-      apellidos: casual.last_name,
-      cargo: casual.random_element(['Manager', 'IT Specialist', 'Receptionist', 'Boss', 'CEO', 'Admin']),
-      id_tipo_contacto: id_tipo,
-      descripcion: casual.text,
-    }
-  },
-  TipoContacto: () => {
-    return {
-      id: casual.integer(from = 666, to = 1000000),
-      nombre: casual.random_element(['Tecnico', 'Envio Postal', 'Evnio por email', 'Dirrecion de envio de contratos']),
-      isVisible: casual.coin_flip,
-    }
-  }
+  Contacto: Contacto(casual),
+  TipoContacto: TipoContacto(casual),
 }
 
 module.exports = mocks; 

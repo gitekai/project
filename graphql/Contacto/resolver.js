@@ -1,22 +1,15 @@
+const DataLoader = require('dataloader');
 const utils = require('../../utils/utils');
 
 const Query = {
   contactos: utils.findAll('Contactos'),
   contacto: utils.findById('Contactos'),
-
 };
 
 const Contacto = {
-  tipo: (contacto, args, context) => {
-    return context.dataloaders.tipoContactoById.load( contacto.id_tipo_contacto);
-    /*return context.models.TiposContacto.find({
-      attributes: ['nombre'],
-      where: { id: contacto.id_tipo_contacto }
-    }).then(seqInstance =>
-      seqInstance.nombre,
-    );*/
-  },
-}
+  tipo: (contacto, args, context) =>
+    context.dataloaders.tipoContactoById.load(contacto.id_tipo_contacto),
+};
 
 const Mutation = {
   createContacto: utils.createMutation('Contactos'),
@@ -24,8 +17,24 @@ const Mutation = {
   deleteContacto: utils.deleteMutation('Contactos'),
 };
 
+
+const getTipoContactoById = models => ids =>
+  models.TiposContacto.findAll({
+    attributes: ['nombre'],
+    where: { id: { [models.Sequelize.Op.in]: ids } },
+  })
+    .then(
+      seqInstance =>
+        seqInstance.map(inst => inst.nombre),
+    );
+
+const dataloaders = models => ({
+  tipoContactoById: new DataLoader(getTipoContactoById(models)),
+});
+
 module.exports = {
   Query,
   Mutation,
   Contacto,
+  dataloaders,
 };

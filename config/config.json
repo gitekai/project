@@ -13,7 +13,12 @@
     "password": null,
     "database": "erp",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "define": {
+      "timestamps": true,
+      "freezeTableName": true,
+      "underscored": true
+    }
   },
   "production": {
     "username": "root",

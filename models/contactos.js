@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       descripcion: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
       cargo: {
         type: DataTypes.STRING,
@@ -32,8 +32,8 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   Contactos.associate = (models) => {
-    Contactos.hasMany(models.MedioComunicacion, {
-      foreignKey: 'id_Contacto',
+    Contactos.hasMany(models.MediosComunicaciones, {
+      foreignKey: 'idContacto',
       allowNull: false,
     });
     Contactos.belongsToMany(models.RedesSociales, { 
@@ -44,7 +44,8 @@ module.exports = (sequelize, DataTypes) => {
     });
     Contactos.belongsTo(models.TiposContacto, {
       foreignKey: {
-        fieldName: 'id_tipo_contacto',
+        name: 'idTiposContacto',
+        //field: 'id_tipos_contacto',
         allowNull: false,
       },       
     });

@@ -1,17 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-  const MedioComunicacion = sequelize.define('MedioComunicacion',
+  const MedioComunicacion = sequelize.define('MediosComunicaciones',
     {
 
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
       },
-      nombre: {
+      valor: {
         type: DataTypes.STRING,
         set(val) {
           this.setDataValue('nombre', val.toUpperCase());
         },
-        unique: true,
+        unique: 'uq_mediocomunicacion_valor',
       },
       anotacion: {
         type: DataTypes.STRING,
@@ -21,14 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   MedioComunicacion.associate = (models) => {
-    MedioComunicacion.belongsTo(models.TipoMedioComunicacion, {
+    MedioComunicacion.belongsTo(models.TiposMedioComunicacion, {
       foreignKey: {
-        primaryKey: true,
-        fieldName: 'id_tipo_medio_comunicacion',
+        name: 'idTipoMedioComunicacion',
+        unique: 'uq_mediocomunicacion_valor',
       },
     });
     MedioComunicacion.belongsTo(models.Contactos, {
-      foreignKey: 'id_contacto',
+      foreignKey: 'idContacto',
       allowNull: false,
     });
   };

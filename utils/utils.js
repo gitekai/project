@@ -116,8 +116,6 @@ function modifyWhere(obj, res = {}) {
     });
   }
 
-
-
   if (obj.OR) {
     Object.defineProperties(obj,
       {
@@ -167,9 +165,6 @@ function findAll(model) {
     });
   }
 }
-
-
-//filter[Op.and].push(operatorObj);
 
 function objIsEmpty(obj) {
   return Object.keys(obj).length === 0 && obj.constructor === Object

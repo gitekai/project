@@ -1,7 +1,5 @@
 const { makeExecutableSchema, addMockFunctionsToSchema } = require('graphql-tools');
-const models = require('../models');
 const mocks = require('./mocks');
-const utils = require('../utils/utils');
 const Pais = require('./schemaParts/pais');
 const GrupoEmpresarial = require('./schemaParts/grupoEmpresarial');
 const Estado = require('./schemaParts/estado');
@@ -14,10 +12,12 @@ const RazonSocial = require('./RazonSocial/schema');
 const Contacto = require('./Contacto/schema');
 const ResContacto = require('./resolver').Contacto;
 const TipoContacto = require('./TipoContacto/schema');
+const TipoMedioComunicacion = require('./TipoMedioComunicacion/schema');
+const MedioComunicacion = require('./MedioComunicacion/schema');
+const ResMedioComunicacion = require('./MedioComunicacion/resolver').MedioComunicacion;
+
 const Query = require('./resolver').Query;
 const Mutation = require('./resolver').Mutation;
-
-
 
 const RootQuery = `
   type RootQuery {
@@ -41,7 +41,8 @@ const SchemaDefinition = `
 const resolvers = {
   RootQuery: Query,
   RootMutation: Mutation,
-  Contacto: ResContacto, 
+  Contacto: ResContacto,
+  MedioComunicacion: ResMedioComunicacion,
 };
 
 
@@ -57,10 +58,11 @@ const schema = makeExecutableSchema({
     Devisa,
     Contacto,
     TipoContacto,
+    TipoMedioComunicacion,
+    MedioComunicacion,
     Pais,
     Producto,
     RedSocial,
-    
   ],
   resolvers,
 });
@@ -71,9 +73,6 @@ addMockFunctionsToSchema({
   preserveResolvers: true,
   logger: { log: e => console.log(e) },
 });*/
-
-
-
 
 module.exports = schema;
 

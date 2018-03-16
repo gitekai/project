@@ -1,21 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const favicon = require('serve-favicon');
 const path = require('path');
 const cors = require('cors');
 const graphqlHTTP = require('express-graphql');
-const { makeExecutableSchema } = require('graphql-tools');
 const schema = require('./graphql/schema');
-const Op = require('sequelize').Op;
-const models = require('./models');
-
+const context = require('./graphql/context');
 // routes to be required
 const def = require('./routes/default');
-//const authorization = require('./routes/authorization');
-const gruposEmpresariales = require('./routes/gruposEmpresariales');
-const razonesSociales = require('./routes/razonesSociales');
+// const authorization = require('./routes/authorization');
+// const gruposEmpresariales = require('./routes/gruposEmpresariales');
+// const razonesSociales = require('./routes/razonesSociales');
 const mappingRouter = require('./routes/mappping');
 
 const app = express();
@@ -47,29 +44,16 @@ app.use('/', def);
 app.use('/api/v1.1/', mappingRouter);
 
 const DataLoader = require('dataloader');
-const getTipoContactoById = models => ids => models
-  .TiposContacto.findAll({
-    attributes: ['nombre'],
-    where: { id: {[Op.in]: ids} }
-  }).then(seqInstance => {
-    return seqInstance.map((inst)=> inst.nombre);
-  };
-    
-);
-
-const dataloaders = models => ({
-  tipoContactoById: new DataLoader(getTipoContactoById(models)),
-});
-
 
 
 app.use(
-  '/graphql',
-  graphqlHTTP({
+  '/v1/graphql',
+  graphqlHTTP(request => ({
     schema,
+    context: context(request),
     graphiql: true,
-    context: { models, dataloaders: dataloaders(models) }
-  }));
+  })),
+);
 app.listen(3000);
 console.log('Running a GraphQL API server at localhost:3000/graphql');
 

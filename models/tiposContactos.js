@@ -13,17 +13,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
+      descripcion: {
+        type: DataTypes.TEXT,
+      }
     },
     {
     });
 
   TiposContacto.associate = (models) => {
     TiposContacto.hasMany(models.Contactos, {
-      foreignKey: { 
-        fieldName: 'id_tipo_contacto',
+      foreignKey: {
+        name: 'idTiposContacto',
+        //field: 'id_tipos_contacto',
         allowNull: false,
       },
-      
+
     });
   }
   return TiposContacto;
