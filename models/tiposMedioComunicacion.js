@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
 
 
   TiposMedioComunicacion.associate = (models) => {
-    TiposMedioComunicacion.hasMany(models.MediosComunicaciones, {
-      foreignKey: 'IdTiposMedioComunicacion',
+    TiposMedioComunicacion.hasMany(models.MediosComunicacion, {
+      foreignKey: 'idTipoMedioComunicacion',
     });
   };
 

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       descripcion: {
         type: DataTypes.TEXT,
-      }
+      },
     },
     {
     });
@@ -24,11 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     TiposContacto.hasMany(models.Contactos, {
       foreignKey: {
         name: 'idTiposContacto',
-        //field: 'id_tipos_contacto',
+        // field: 'id_tipos_contacto',
         allowNull: false,
       },
 
     });
-  }
+  };
+
   return TiposContacto;
 };

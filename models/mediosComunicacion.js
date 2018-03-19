@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const MedioComunicacion = sequelize.define('MediosComunicaciones',
+  const MediosComunicacion = sequelize.define('MediosComunicacion',
     {
 
       id: {
@@ -21,18 +21,18 @@ module.exports = (sequelize, DataTypes) => {
     {
     });
 
-  MedioComunicacion.associate = (models) => {
-    MedioComunicacion.belongsTo(models.TiposMedioComunicacion, {
+  MediosComunicacion.associate = (models) => {
+    MediosComunicacion.belongsTo(models.TiposMedioComunicacion, {
       foreignKey: {
         name: 'idTipoMedioComunicacion',
         unique: 'uq_mediocomunicacion_valor',
       },
     });
-    MedioComunicacion.belongsTo(models.Contactos, {
+    MediosComunicacion.belongsTo(models.Contactos, {
       foreignKey: 'idContacto',
       allowNull: false,
     });
   };
 
-  return MedioComunicacion;
+  return MediosComunicacion;
 };

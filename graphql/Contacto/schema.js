@@ -6,6 +6,7 @@ type Contacto{
   apellidos: String!
   "Tipo de Contacto que nadie entiende ... Hace falta otro nombre !!!!!"
   tipo: String!
+  redesSociales: [String]
   
   "Cargo: No parece que tiene normalizacion por lo que no aporta informacion valida en la BBDD"
   cargo: String
@@ -69,7 +70,7 @@ type ContactoDelete{
 }
 
 extend type RootQuery{
-  contactos(where: queryContacto): [Contacto!]!
+  contactos(first: Int, skip: Int, where: queryContacto): [Contacto!]!
   contacto(id: Int! ): Contacto
 }
 extend type RootMutation{

@@ -6,15 +6,16 @@ const Estado = require('./schemaParts/estado');
 const Devisa = require('./schemaParts/devisa');
 
 const Producto = require('./schemaParts/producto');
-const RedSocial = require('./schemaParts/redSocial');
 
 const RazonSocial = require('./RazonSocial/schema');
 const Contacto = require('./Contacto/schema');
-const ResContacto = require('./resolver').Contacto;
 const TipoContacto = require('./TipoContacto/schema');
 const TipoMedioComunicacion = require('./TipoMedioComunicacion/schema');
 const MedioComunicacion = require('./MedioComunicacion/schema');
+const RedSocial = require('./RedSocial/schema');
 const ResMedioComunicacion = require('./MedioComunicacion/resolver').MedioComunicacion;
+const ResContacto = require('./resolver').Contacto;
+
 
 const Query = require('./resolver').Query;
 const Mutation = require('./resolver').Mutation;
@@ -66,13 +67,13 @@ const schema = makeExecutableSchema({
   ],
   resolvers,
 });
-/*
+
 addMockFunctionsToSchema({
   schema,
   mocks,
   preserveResolvers: true,
   logger: { log: e => console.log(e) },
-});*/
+});
 
 module.exports = schema;
 

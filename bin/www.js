@@ -58,7 +58,7 @@ async function create_contactos(countTipo = 1, countContactos = 2) {
 async function startup() {
   await models.sequelize.sync({ force: true });
   await create_rs(10);
-  await create_contactos(3,20);
+ // await create_contactos(3,20);
   server.listen(port, () => {
     console.log("server started");
   });

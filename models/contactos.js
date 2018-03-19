@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       recibeRegaloEnNavidad: {
-        type: DataTypes.BOOLEAN, 
+        type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
 
@@ -32,41 +32,24 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   Contactos.associate = (models) => {
-    Contactos.hasMany(models.MediosComunicaciones, {
+    Contactos.hasMany(models.MediosComunicacion, {
       foreignKey: 'idContacto',
       allowNull: false,
     });
-    Contactos.belongsToMany(models.RedesSociales, { 
+    Contactos.belongsToMany(models.RedesSociales, {
       through: 'ContactoEnRedSocial',
-      foreignKey: 'id_contacto',
+      foreignKey: 'idContacto',
       allowNull: false,
       unique: true,
     });
     Contactos.belongsTo(models.TiposContacto, {
       foreignKey: {
         name: 'idTiposContacto',
-        //field: 'id_tipos_contacto',
+        // field: 'id_tipos_contacto',
         allowNull: false,
-      },       
+      },
     });
   };
 
   return Contactos;
 };
-
-
-/*
-cargo 
-departamento: 
-  --> deberían ser normalizados también, 
-      si no serán reemplazado por el campo descripcion !!!!
-tipoDeContacto
-  -te
-  -Envio postal 
-  -Envio por email
-  -Tecnico
-  -Dirrecion de envio de contrators 
-  --> para Que coño supuestamente sirve esto. 
-
-
-*/

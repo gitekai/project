@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   Ciudades.associate = (models) => {
-    /* OJITO el hasMany encima del belongsTo hace que funcione. Si no, no crea el foreignKey  ... 
+    /* OJITO el hasMany encima del belongsTo hace que funcione. Si no, no crea el foreignKey  ...
    */
     Ciudades.hasMany(models.DireccionesFiscales, {
       foreignKey: 'id_ciudad',

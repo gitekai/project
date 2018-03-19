@@ -47,7 +47,7 @@ const DataLoader = require('dataloader');
 
 
 app.use(
-  '/v1/graphql',
+  '/v1/erp2d2',
   graphqlHTTP(request => ({
     schema,
     context: context(request),

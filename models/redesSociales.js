@@ -4,31 +4,34 @@ module.exports = (sequelize, DataTypes) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
       },
       nombre: {
         type: DataTypes.STRING,
-        set(val) {
-          this.setDataValue('nombre', val.toUpperCase());
-        },
         unique: true,
         allowNull: false,
+        set(val) {
+          this.setDataValue('nombre', val.toLowerCase());
+        },
       },
       url: {
         type: DataTypes.STRING,
-        allowNull: false,
         unique: true,
+        allowNull: false,
+        set(val) {
+          this.setDataValue('url', val.toLowerCase());
+        },
       },
     },
     {
     });
 
   RedesSociales.associate = (models) => {
-    RedesSociales.belongsToMany(models.Contactos, { 
+    RedesSociales.belongsToMany(models.Contactos, {
       through: 'ContactoEnRedSocial',
-      foreignKey: 'id_red_social',
+      foreignKey: 'idRedSocial',
     });
-  }
-
+  };
 
   return RedesSociales;
 };

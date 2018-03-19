@@ -8,7 +8,17 @@ const Query = {
 
 const Contacto = {
   tipo: (contacto, args, context) =>
-    context.dataloaders.tipoContactoById.load(contacto.id_tipo_contacto),
+    context.dataloaders.tipoContactoById.load(contacto.idTiposContacto),
+
+  redesSociales: (contacto, args, context) =>
+    context.dataloaders.redSocialById.load(contacto.id),
+  /* context.models.ContactoEnRedSocial.findAll({
+      attributes: ['urlContacto'],
+      where: { idContacto: contacto.id },
+    })
+      .then(sequInstance =>
+        sequInstance.map(inst => { return inst.urlContacto }),
+    ),*/
 };
 
 const Mutation = {
@@ -26,10 +36,29 @@ const getTipoContactoById = models => ids =>
     .then(
       seqInstance =>
         seqInstance.map(inst => inst.nombre),
-    );
+  );
+
+const getRedSocialById = models => ids =>
+  models.Contactos.findAll({
+    include: [{
+      model: models.RedesSociales,
+      through: {
+        required: false,
+        attributes: ['urlContacto'],
+      }
+    }],
+  }).then(
+    seqInstance => 
+      seqInstance.map(inst =>
+        inst.getRedesSociales({through:'urlContacto'}).then(
+          e =>
+           new Promise([e])),
+      ),
+  );
 
 const dataloaders = models => ({
   tipoContactoById: new DataLoader(getTipoContactoById(models)),
+  redSocialById: new DataLoader(getRedSocialById(models)),
 });
 
 module.exports = {

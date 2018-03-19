@@ -2,7 +2,7 @@ const { MockList } = require('graphql-tools');
 const casual = require('casual');
 const Contacto = require('./Contacto/mock');
 const TipoContacto = require('./TipoContacto/mock');
-
+const RedSocial = require('./RedSocial/mock');
 
 
 casual.seed(123);
@@ -37,10 +37,7 @@ const mocks = {
   Estado: () => ({
     nombre: casual.random_element(['abierto', 'cerrado', 'ganado']),
   }),
-  RedSocial: () => ({
-    nombre: casual.random_element(['Facebook', 'Twitter', 'Google+', 'Instagram', 'LinkedIN']),
-    url: casual.url,
-  }),
+  //RedSocial: RedSocial(casual),
   Contacto: Contacto(casual),
   TipoContacto: TipoContacto(casual),
 }

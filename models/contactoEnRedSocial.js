@@ -3,12 +3,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       urlContacto: {
         type: DataTypes.STRING,
+        unique: true,
         allowNull: false,
       },
     },
     {
 
     });
-
   return ContactoEnRedSocial;
 };
