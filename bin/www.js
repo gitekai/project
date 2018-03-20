@@ -27,7 +27,7 @@ async function create_rs(counter) {
 
 }
 
-function random(max=0){
+function random(max = 0) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
@@ -49,16 +49,29 @@ async function create_contactos(countTipo = 1, countContactos = 2) {
     let contacto = mocks.Contacto(tipoContacto.id);
     arrContactosPromise.push(models.Contactos.create(contacto));
   }
+
   return Promise.all(arrContactosPromise)
     .catch((err) => {
       console.log(`Ha habido un error = ${err}`);
     });
 }
 
+function create_tiposDeMedioDeComunicacion() {
+
+  const arr = Promise.all([
+    models.TiposMedioComunicacion.create(mocks.TipoMedioComunicacion()),
+    models.TiposMedioComunicacion.create(mocks.TipoMedioComunicacion()),
+  models.TiposMedioComunicacion.create(mocks.TipoMedioComunicacion()),
+   ]).catch (err => console.log(err));
+  console.log();
+  return arr;
+}
+
 async function startup() {
   await models.sequelize.sync({ force: true });
+  create_tiposDeMedioDeComunicacion();
   await create_rs(10);
- // await create_contactos(3,20);
+  await create_contactos(3, 20);
   server.listen(port, () => {
     console.log("server started");
   });

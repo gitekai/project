@@ -5,8 +5,10 @@ type Contacto{
   nombre: String! @unique
   apellidos: String!
   "Tipo de Contacto que nadie entiende ... Hace falta otro nombre !!!!!"
-  tipo: String!
-  redesSociales: [String]
+  tipo: TipoContacto!
+  redesSociales: [RedSocial]
+  mediosDeComunicacion: [MedioComunicacion]
+
   
   "Cargo: No parece que tiene normalizacion por lo que no aporta informacion valida en la BBDD"
   cargo: String

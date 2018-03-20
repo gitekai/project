@@ -2,7 +2,7 @@ const MedioComunicacion = `
 
 type MedioComunicacion{
   id: ID!
-  nombre: String! @unique 
+  valor: String! @unique 
   descripcion: String
   tipoMedioComunicacion: String
   contacto: Contacto

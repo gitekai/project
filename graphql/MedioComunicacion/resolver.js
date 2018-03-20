@@ -2,13 +2,13 @@ const utils = require('../../utils/utils');
 const DataLoader = require('dataloader');
 
 const Query = {
-  mediosComunicaciones: utils.findAll('MediosComunicaciones'),
-  medioComunicacion: utils.findById('MediosComunicaciones'),
+  mediosComunicaciones: utils.findAll('MediosComunicacion'),
+  medioComunicacion: utils.findById('MediosComunicacion'),
 };
 const Mutation = {
-  createMedioComunicacion: utils.createMutation('MediosComunicaciones'),
-  modifyMedioComunicacion: utils.updateMutation('MediosComunicaciones'),
-  deleteMedioComunicacion: utils.deleteMutation('MediosComunicaciones'),
+  createMedioComunicacion: utils.createMutation('MediosComunicacion'),
+  modifyMedioComunicacion: utils.updateMutation('MediosComunicacion'),
+  deleteMedioComunicacion: utils.deleteMutation('MediosComunicacion'),
 };
 
 const MedioComunicacion = {

@@ -1,21 +1,18 @@
 const { makeExecutableSchema, addMockFunctionsToSchema } = require('graphql-tools');
 const mocks = require('./mocks');
-const Pais = require('./schemaParts/pais');
-const GrupoEmpresarial = require('./schemaParts/grupoEmpresarial');
-const Estado = require('./schemaParts/estado');
-const Devisa = require('./schemaParts/devisa');
 
-const Producto = require('./schemaParts/producto');
-
+const Pais = require('./Pais/schema');
+const GrupoEmpresarial = require('./GrupoEmpresarial/schema');
+const Estado = require('./Estado/schema');
 const RazonSocial = require('./RazonSocial/schema');
 const Contacto = require('./Contacto/schema');
 const TipoContacto = require('./TipoContacto/schema');
 const TipoMedioComunicacion = require('./TipoMedioComunicacion/schema');
 const MedioComunicacion = require('./MedioComunicacion/schema');
 const RedSocial = require('./RedSocial/schema');
+
 const ResMedioComunicacion = require('./MedioComunicacion/resolver').MedioComunicacion;
 const ResContacto = require('./resolver').Contacto;
-
 
 const Query = require('./resolver').Query;
 const Mutation = require('./resolver').Mutation;
@@ -56,13 +53,11 @@ const schema = makeExecutableSchema({
     RazonSocial,
     GrupoEmpresarial,
     Estado,
-    Devisa,
     Contacto,
     TipoContacto,
     TipoMedioComunicacion,
     MedioComunicacion,
     Pais,
-    Producto,
     RedSocial,
   ],
   resolvers,
