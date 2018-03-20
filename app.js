@@ -9,11 +9,6 @@ const graphqlHTTP = require('express-graphql');
 const schema = require('./graphql/schema');
 const context = require('./graphql/context');
 // routes to be required
-const def = require('./routes/default');
-// const authorization = require('./routes/authorization');
-// const gruposEmpresariales = require('./routes/gruposEmpresariales');
-// const razonesSociales = require('./routes/razonesSociales');
-const mappingRouter = require('./routes/mappping');
 
 const app = express();
 app.use('*', cors({ origin: 'http://localhost:3000' }));
@@ -36,16 +31,6 @@ app.use((req, res, next) => {
   next();
 });
 //ALL ROUTES MUST BE MOUNTED HERE 
-app.use('/', def);
-
-
-//al final van los router genericos 
-// asi si hay algo más especifico se ejecuta eso en vez del generico
-app.use('/api/v1.1/', mappingRouter);
-
-const DataLoader = require('dataloader');
-
-
 app.use(
   '/v1/erp2d2',
   graphqlHTTP(request => ({
@@ -55,7 +40,6 @@ app.use(
   })),
 );
 app.listen(3000);
-console.log('Running a GraphQL API server at localhost:3000/graphql');
 
 app.use((req, res, next) => {
   const err = new Error('404');
@@ -70,14 +54,10 @@ app.use((req, res, next) => {
  * @param {string name Whom to greet.
  */
 app.use((err, req, res) => {
-  //  const internalSrvErr = { message: `Internal Server Error ${err}` };
-  const internalSrvErr = { message: `WTF` };
+  const internalSrvErr = { message: `Internal Server Error ${err}` };
   const notFoundErr = { message: 'Route Not Found' };
   res.send(err.code === 404 ? JSON.stringify(notFoundErr) : JSON.stringify(internalSrvErr));
 });
 
 
 module.exports = app;
-
-
-
