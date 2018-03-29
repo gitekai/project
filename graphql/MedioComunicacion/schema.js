@@ -4,8 +4,9 @@ type MedioComunicacion{
   id: ID!
   valor: String! @unique 
   descripcion: String
-  tipoMedioComunicacion: String
-  contacto: Contacto
+
+  tipoMedioComunicacion: TipoMedioComunicacion!
+  contacto: Contacto!
 }
 
 input createMedioComunicacion{

@@ -1,6 +1,6 @@
 const data = require('../models');
-const contactoDataLoaders = require('./Contacto/resolver').dataloaders;
-const medioComunicacionDataLoaders = require('./MedioComunicacion/resolver').dataloaders;
+const contactoDataLoaders = require('./Contacto/loaders').dataloaders;
+const medioComunicacionDataLoaders = require('./MedioComunicacion/loaders').dataloaders;
 
 
 module.exports = () => ({

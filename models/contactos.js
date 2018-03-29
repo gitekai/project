@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       nombre: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false,
         set(val) {
           this.setDataValue('nombre', val.toLowerCase());

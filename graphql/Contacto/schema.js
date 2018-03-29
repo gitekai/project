@@ -6,8 +6,8 @@ type Contacto{
   apellidos: String!
   "Tipo de Contacto que nadie entiende ... Hace falta otro nombre !!!!!"
   tipo: TipoContacto!
-  redesSociales: [RedSocial]
-  mediosDeComunicacion: [MedioComunicacion]
+  redesSociales: [String!]!
+  mediosDeComunicacion: [MedioComunicacion!]!
 
   
   "Cargo: No parece que tiene normalizacion por lo que no aporta informacion valida en la BBDD"
@@ -20,23 +20,27 @@ type Contacto{
   recibeRegaloEnNavidad: Boolean
 }
 
+type ContactoEnRedSocial{
+  redSocial: RedSocial!
+  urlContacto: String!
+}
 
-
-"Ojo Que esto no funciona ni pa tras !!!!"
 input createContacto{
   nombre: String! 
   apellidos: String!
-  id_tipo_contacto: Int!
   cargo: String
   departamento: String
   descripcion: String
   recibeRegaloEnNavidad: Boolean
+  
+  idTipoContacto: Int!
+  idsMediosDeComunicacion: [Int!]!
+  idsRedesSociales: [Int!]
 }
 
 input updateContacto{
   nombre: String 
   apellidos: String
-  id_tipo_contacto: Int
   cargo: String
   departamento: String
   descripcion: String
@@ -79,6 +83,10 @@ extend type RootMutation{
   createContacto(data: createContacto!): Contacto!
   modifyContacto(data: updateContacto!, id: Int!): Contacto!
   deleteContacto(id: Int!): ContactoDelete
+
+  addSocialNetworks(idsSocialNetworks: [Int!]! ): Contacto!
+  addMediosDeComunicacion(idsMediosDeContacto: [Int!]!): Contacto!
+
 }
 `;
 
